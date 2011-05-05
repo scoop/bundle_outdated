@@ -8,11 +8,13 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Patrick Lenz"]
   s.email       = ["patricklenz@gmail.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/scoop/bundle_outdated"
   s.summary     = %q{Find out which gems in your bundle are outdated.}
   s.description = %q{Find out which gems in your bundle are outdated.}
 
   s.rubyforge_project = "bundle_outdated"
+
+  s.add_dependency 'rr', '~> 1.0'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

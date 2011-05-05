@@ -9,9 +9,8 @@ module BundleOutdated
     VERSION_REGEXP = /^(['"])[~><=]*\s*(.+?)\1$/
     GEMNAME_REGEXP = /gem\s(['"])(.+?)\1/
 
-    def initialize(name, version)
-      self.name = name
-      self.version = version
+    def initialize(gemfile_string)
+      self.name, self.version = gemfile_string.split(/,\s*/)
     end
 
     def name=(new_name)
@@ -67,8 +66,7 @@ module BundleOutdated
 
     def all_gems
       gemfile.grep(/^gem\b/).collect do |gem|
-        gemname, version = gem.split(/,\s*/)
-        GemDependency.new gemname, version
+        GemDependency.new gem
       end
     end
   end
