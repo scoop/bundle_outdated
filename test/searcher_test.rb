@@ -4,7 +4,7 @@ require 'bundle_outdated'
 class SearcherTest < Test::Unit::TestCase
   def setup
     stub(File).read('Gemfile') { "gem 'rails', '~> 3.0'" }
-    stub(Gem).latest_version_for('rails') { '3.1' }
+    stub(Gem).latest_version_for('rails') { Gem::Version.new('3.1') }
     @searcher = BundleOutdated::Searcher.new
   end
 
@@ -20,7 +20,7 @@ class SearcherTest < Test::Unit::TestCase
   def test_gemfile_raises_error_if_no_gemfile_found
     mock(File).exists?('Gemfile') { false }
     assert_raises(BundleOutdated::Searcher::GemfileNotFound) {
-      @searcher.search!
+      @searcher.gemfile
     }
   end
 
@@ -30,6 +30,10 @@ class SearcherTest < Test::Unit::TestCase
   end
 
   def test_search_finds_all_outdated_gems
-    assert_equal 'rails', @searcher.all_gems.first.name
+    assert_equal 'rails', @searcher.outdated_gems.first.name
+  end
+
+  def test_search_finds_all_handwaving_gems
+    assert_equal 'rails', @searcher.handwaving_gems.first.name
   end
 end
