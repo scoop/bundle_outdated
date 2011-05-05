@@ -4,9 +4,9 @@ module BundleOutdated
   end
 
   class GemDependency
-    attr_reader :name, :version
+    attr_reader :name, :version, :handwaving
 
-    VERSION_REGEXP = /^(['"])[~><=]*\s*(.+?)\1$/
+    VERSION_REGEXP = /^(['"])([~><=])*\s*(.+?)\1$/
     GEMNAME_REGEXP = /gem\s(['"])(.+?)\1/
 
     def initialize(gemfile_string)
@@ -23,9 +23,12 @@ module BundleOutdated
     def version=(new_version)
       @version = nil
       if new_version && new_version.match(VERSION_REGEXP)
-        @version = Gem::Version.new($2)
+        @handwaving = !!$2
+        @version = Gem::Version.new($3)
       end
     end
+
+    def handwaving?; !!handwaving; end
 
     def to_s
       "#{name}, Version: #{ version || 'Any' }"

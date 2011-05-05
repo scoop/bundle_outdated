@@ -31,6 +31,16 @@ class GemDependencyTest < Test::Unit::TestCase
     assert_equal '3.1', gd.version.to_s
   end
 
+  def test_version_with_handwaving
+    gd = BundleOutdated::GemDependency.new 'gem "rails", "~> 3.1"'
+    assert gd.handwaving?
+  end
+
+  def test_version_without_handwaving
+    gd = BundleOutdated::GemDependency.new 'gem "rails", "3.1"'
+    assert !gd.handwaving?
+  end
+
   def test_inspection
     gd = BundleOutdated::GemDependency.new 'gem "rails", "~> 3.1"'
     assert_equal 'rails, Version: 3.1', gd.to_s
