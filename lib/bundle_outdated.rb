@@ -1,6 +1,6 @@
 module BundleOutdated
   def self.search!
-     Searcher.search!
+     Searcher.new.search!
   end
 
   class GemDependency
@@ -44,15 +44,9 @@ module BundleOutdated
   class Searcher
     class GemfileNotFound < StandardError; end
 
-    def self.search!
-      searcher = new
-    end
-
-    def initialize
-      all_gems.each do |gem|
-        if gem.outdated?
-          puts "#{gem.name} (#{gem.latest_version} > #{gem.version})"
-        end
+    def search!
+      all_gems.find_all(&:outdated?).each do |gem|
+        puts "#{gem.name} (#{gem.latest_version} > #{gem.version})"
       end
     end
 
