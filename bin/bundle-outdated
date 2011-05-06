@@ -19,4 +19,15 @@ fallback_load_path(File.join(File.dirname(__FILE__), '..', 'lib')) do
   require 'bundle_outdated'
 end
 
-BundleOutdated.search!
+begin
+  BundleOutdated.search!
+rescue NoMethodError => e
+  if e.message =~ /latest_version_for/
+    puts "ERROR: Please upgrade to at least RubyGems version 1.6.0 to use this tool."
+    puts "\n  $ gem update --system"
+    puts
+  else
+    raise
+  end
+end
+

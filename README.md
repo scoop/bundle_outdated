@@ -10,6 +10,12 @@ and thus could potentially be updated.
 
     $ gem install bundle_outdated
 
+It currently requires RubyGems 1.6.0 or newer, which can be installed/updated with:
+
+    $ gem update --system [version]
+
+(The version argument is not available on really old versions.)
+
 ## Usage
 
 From your Ruby project directory or your `Rails.root`:

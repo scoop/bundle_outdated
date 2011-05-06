@@ -14,7 +14,9 @@ Gem::Specification.new do |s|
 
   s.rubyforge_project = "bundle_outdated"
 
-  s.add_dependency 'rr', '~> 1.0'
+  s.add_development_dependency 'rr', '~> 1.0'
+  s.required_rubygems_version = ">= 1.6.0"
+  
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
