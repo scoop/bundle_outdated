@@ -35,7 +35,7 @@ module BundleOutdated
     end
 
     def outdated?
-      return false unless version
+      return false unless version && latest_version
       version < latest_version
     end
   end

@@ -60,4 +60,12 @@ class GemDependencyTest < Test::Unit::TestCase
     gd = BundleOutdated::GemDependency.new 'gem "rails", "3.1"'
     assert !gd.outdated?
   end
+
+  def test_outdated_handles_unavailable_gems
+    mock(Gem).latest_version_for('rails') { nil }
+    gd = BundleOutdated::GemDependency.new 'gem "rails", "3.1"'
+    assert_nothing_raised {
+      assert !gd.outdated?
+    }
+  end
 end
