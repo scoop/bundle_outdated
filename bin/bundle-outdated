@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# This allows compass to run easily from a git checkout without install.
+# This allows bundle-outdated to run easily from a git checkout without install.
 # Credit: Compass [https://github.com/chriseppstein/compass/]
 def fallback_load_path(path)
   retried = false

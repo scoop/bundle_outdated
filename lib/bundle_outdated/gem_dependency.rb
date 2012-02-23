@@ -2,7 +2,7 @@ module BundleOutdated
   class GemDependency
     attr_reader :name, :version, :handwaving
 
-    VERSION_REGEXP = /^(['"])([~><=]*)\s*(.+?)\1$/
+    VERSION_REGEXP = /^(['"])([!~><=]*)\s*(.+?)\1$/
     GEMNAME_REGEXP = /gem\s(['"])(.+?)\1/
 
     def initialize(gemfile_string)
